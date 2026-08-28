@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: algo-visualizer/package-lock.json
+      - run: npm ci
+        working-directory: algo-visualizer
+      - run: npm run lint
+        working-directory: algo-visualizer
+      - run: npm test
+        working-directory: algo-visualizer
+      - run: npm run build
+        working-directory: algo-visualizer

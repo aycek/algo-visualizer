@@ -1,0 +1,91 @@
+import { useState, useMemo } from 'react';
+import { generateDFSSteps, sampleGraph, graphPositions } from '../../utils/algorithmHelpers';
+import { useAlgorithmState } from '../../hooks/useAlgorithmState';
+import ControlPanel from '../Common/ControlPanel';
+import InfoPanel from '../Common/InfoPanel';
+import { t } from '../../utils/i18n';
+
+const nodes = Object.keys(sampleGraph);
+const edges = [];
+nodes.forEach(n => sampleGraph[n].forEach(m => { if (n < m) edges.push([n, m]); }));
+
+export default function DFS({ lang = 'tr' }) {
+  const [start, setStart] = useState('A');
+  const steps = useMemo(() => generateDFSSteps(sampleGraph, start, lang), [start, lang]);
+  const state = useAlgorithmState(steps);
+  const { step } = state;
+
+  const nodeColor = (n) => {
+    if (n === step.current) return '#f59e0b';
+    if (step.exploring === n) return '#a78bfa';
+    if (step.visited.includes(n)) return '#10b981';
+    return '#94a3b8';
+  };
+
+  const complexity = {
+    [t(lang, 'complexity.time')]: 'O(V+E)',
+    [t(lang, 'complexity.space')]: 'O(V)',
+    [t(lang, 'complexity.best')]: 'O(1)',
+    [t(lang, 'complexity.worst')]: 'O(V+E)',
+  };
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-8 space-y-6 animate-fade-in">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-gradient mb-2">DFS</h2>
+        <p className="text-gray-500 dark:text-gray-400">
+          {lang === 'tr' ? 'Depth-First Search — Derinlik Oncelikli Arama' : 'Depth-First Search — Deep recursive graph traversal'}
+        </p>
+      </div>
+
+      <div className="card">
+        <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">{t(lang, 'algo.startNode')}</label>
+        <div className="flex gap-2">
+          {nodes.map(n => (
+            <button key={n} onClick={() => setStart(n)}
+              className={`w-10 h-10 rounded-xl font-bold text-sm transition-all ${start === n ? 'bg-indigo-600 text-white shadow-lg' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}>
+              {n}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="card">
+        <svg viewBox="0 0 540 340" className="w-full max-h-64">
+          {edges.map(([a, b]) => {
+            const pa = graphPositions[a], pb = graphPositions[b];
+            const isActive = (step.current === a && step.exploring === b) || (step.current === b && step.exploring === a);
+            return <line key={`${a}-${b}`} x1={pa.x} y1={pa.y} x2={pb.x} y2={pb.y} stroke={isActive ? '#a78bfa' : '#cbd5e1'} strokeWidth={isActive ? 3 : 1.5} className="transition-all duration-300" />;
+          })}
+          {nodes.map(n => {
+            const p = graphPositions[n];
+            return (
+              <g key={n}>
+                <circle cx={p.x} cy={p.y} r={26} fill={nodeColor(n)} className="transition-all duration-300"
+                  stroke={n === step.current ? '#fff' : 'transparent'} strokeWidth={3} />
+                <text x={p.x} y={p.y + 5} textAnchor="middle" fill="white" fontSize={16} fontWeight="bold">{n}</text>
+              </g>
+            );
+          })}
+        </svg>
+        <div className="flex flex-wrap justify-center gap-4 mt-2 pt-4 border-t border-gray-100 dark:border-gray-800 text-xs">
+          {[{color:'bg-gray-400',key:'legend.unvisited'},{color:'bg-amber-400',key:'legend.current'},{color:'bg-purple-400',key:'legend.exploring'},{color:'bg-emerald-500',key:'legend.visited'}].map(l => (
+            <div key={l.key} className="flex items-center gap-1.5"><div className={`w-3 h-3 rounded-full ${l.color}`}/><span className="text-gray-500 dark:text-gray-400">{t(lang, l.key)}</span></div>
+          ))}
+        </div>
+        {step.visited.length > 0 && (
+          <div className="mt-2 text-center text-xs">
+            <span className="text-gray-500 dark:text-gray-400 mr-2">{t(lang, 'algo.visit')}:</span>
+            <span className="font-mono text-emerald-600 dark:text-emerald-400">{step.visited.join(' -> ')}</span>
+          </div>
+        )}
+      </div>
+
+      <ControlPanel state={state} lang={lang} />
+      <InfoPanel message={step.message} complexity={complexity}
+        pseudocode={`procedure DFS(G, node, visited)\n  visited.add(node)\n  process(node)\n  for neighbor in G[node]\n    if not visited\n      DFS(G, neighbor, visited)`}
+        description={lang === 'tr' ? 'DFS mumkun oldukca derine iner, sonra geri donerek diger dallari kesfeder.' : 'DFS explores as deep as possible before backtracking to explore other branches.'}
+        lang={lang} />
+    </div>
+  );
+}
