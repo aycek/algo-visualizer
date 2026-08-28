@@ -1,5 +1,5 @@
 import { ArrowLeft, GitBranch } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import ControlPanel from '../Common/ControlPanel';
 import InfoPanel from '../Common/InfoPanel';
@@ -105,7 +105,7 @@ function TraversalView({ type, setType, lang }) {
     { id: 'levelorder', label: 'Level-Order', desc: lang === 'tr' ? 'Seviye Seviye'     : 'Level by Level'        },
   ];
 
-  const steps = buildSteps(type, lang);
+  const steps = useMemo(() => buildSteps(type, lang), [type, lang]);
   const state = useAlgorithmState(steps);
   const { step } = state;
   const currentT = traversals.find(tr => tr.id === type);
