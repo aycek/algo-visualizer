@@ -1,4 +1,4 @@
-import { BarChart2, Share2, GitBranch, Gamepad2, ArrowRight, Zap, BookOpen, Trophy } from 'lucide-react';
+import { BarChart2, Share2, GitBranch, HelpCircle, ArrowRight, Zap, BookOpen, Trophy } from 'lucide-react';
 import { t } from '../../utils/i18n';
 
 export default function Home({ setPage, lang }) {
@@ -19,7 +19,7 @@ export default function Home({ setPage, lang }) {
       algorithms: ['Inorder', 'Preorder', 'Postorder', 'Level-Order'],
     },
     {
-      id: 'game', icon: Gamepad2,
+      id: 'game', icon: HelpCircle,
       color: 'from-pink-500 to-rose-600', bg: 'bg-pink-50 dark:bg-pink-950/30', border: 'border-pink-100 dark:border-pink-900',
       algorithms: ['Easy', 'Medium', 'Hard'],
     },

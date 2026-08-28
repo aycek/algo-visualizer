@@ -48,7 +48,7 @@ export default function SelectionSort({ lang = 'tr' }) {
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gradient mb-2">Selection Sort</h2>
         <p className="text-gray-500 dark:text-gray-400">
-          {lang === 'tr' ? 'Her geciste minimum elemani bulup dogru pozisyona koyar' : 'Finds the minimum element each pass and places it in position'}
+          {lang === 'tr' ? 'Her geçişte minimum elemanı bulup doğru pozisyona koyar' : 'Finds the minimum element each pass and places it in position'}
         </p>
       </div>
 
@@ -84,7 +84,7 @@ export default function SelectionSort({ lang = 'tr' }) {
       <ControlPanel state={state} lang={lang} />
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure selectionSort(A)\n  for i = 0 to n-2\n    minIdx = i\n    for j = i+1 to n-1\n      if A[j] < A[minIdx]: minIdx = j\n    swap(A[i], A[minIdx])`}
-        description={lang === 'tr' ? 'Selection Sort her geciste siralanmamis kisimdan en kucuk elemani secip sirali kismin sonuna ekler.' : 'Selection Sort finds the minimum element from unsorted part and places it at the beginning.'}
+        description={lang === 'tr' ? 'Selection Sort her geçişte sıralanmamış kısımdan en küçük elemanı seçip sıralı kısmın sonuna ekler.' : 'Selection Sort finds the minimum element from unsorted part and places it at the beginning.'}
         lang={lang} />
     </div>
   );

@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { quizQuestions } from '../../utils/algorithmHelpers';
-import { Trophy, Star, RotateCcw, ChevronRight, CheckCircle, XCircle, Gamepad2, Zap } from 'lucide-react';
+import { Trophy, Star, RotateCcw, ChevronRight, CheckCircle, XCircle, HelpCircle, Zap } from 'lucide-react';
 import { t } from '../../utils/i18n';
 
 const BEST_SCORES_KEY = 'algoviz_best_scores';
@@ -95,7 +95,7 @@ export default function GameMode({ lang = 'tr' }) {
       <div className="max-w-3xl mx-auto px-4 py-12 animate-fade-in">
         <div className="text-center mb-10">
           <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl">
-            <Gamepad2 size={28} className="text-white" />
+            <HelpCircle size={28} className="text-white" />
           </div>
           <h2 className="text-3xl font-bold text-gradient mb-2">{t(lang, 'game.title')}</h2>
           <p className="text-gray-500 dark:text-gray-400">{t(lang, 'game.subtitle')}</p>
@@ -201,7 +201,7 @@ export default function GameMode({ lang = 'tr' }) {
 
       <div className="card mb-4">
         <div className="flex items-start gap-2 mb-1">
-          <span className="text-xs text-gray-400">{diffLabel[currentQ.difficulty] || ''} {currentQ.difficulty}</span>
+          <span className="text-xs text-gray-400">{diffLabel[currentQ.difficulty] || ''} {t(lang, `game.${currentQ.difficulty}`)}</span>
         </div>
         <p className="text-lg font-semibold text-gray-800 dark:text-gray-100 leading-relaxed">{currentQ.question}</p>
       </div>

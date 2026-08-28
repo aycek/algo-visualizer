@@ -19,7 +19,7 @@ const treeEdges = [[1,2],[1,3],[2,4],[2,5],[3,6],[3,7]];
 
 function inorder(node, steps, visited, lang) {
   if (!node) return;
-  const m = lang === 'tr' ? `Sol alt agac: ${node.value}` : `Left subtree: ${node.value}`;
+  const m = lang === 'tr' ? `Sol alt ağaç: ${node.value}` : `Left subtree: ${node.value}`;
   steps.push({ visited: [...visited], current: null, message: m, phase: 'go-left' });
   inorder(node.left, steps, visited, lang);
   visited.push(node.value);
@@ -49,7 +49,7 @@ function levelorder(node, steps, lang) {
   while (queue.length) {
     const n = queue.shift();
     visited.push(n.value);
-    steps.push({ visited: [...visited], current: n.value, message: `${n.value} ${lang === 'tr' ? 'ziyaret edildi (seviye-sira)' : 'visited (level order)'}`, phase: 'visit' });
+    steps.push({ visited: [...visited], current: n.value, message: `${n.value} ${lang === 'tr' ? 'ziyaret edildi (seviye-sıra)' : 'visited (level order)'}`, phase: 'visit' });
     if (n.left) queue.push(n.left);
     if (n.right) queue.push(n.right);
   }
@@ -57,12 +57,12 @@ function levelorder(node, steps, lang) {
 
 function buildSteps(type, lang) {
   const labels = {
-    inorder:    lang === 'tr' ? 'Inorder basliyor'    : 'Inorder starting',
-    preorder:   lang === 'tr' ? 'Preorder basliyor'   : 'Preorder starting',
-    postorder:  lang === 'tr' ? 'Postorder basliyor'  : 'Postorder starting',
-    levelorder: lang === 'tr' ? 'Level-Order basliyor': 'Level-Order starting',
+    inorder:    lang === 'tr' ? 'Inorder başlıyor'    : 'Inorder starting',
+    preorder:   lang === 'tr' ? 'Preorder başlıyor'   : 'Preorder starting',
+    postorder:  lang === 'tr' ? 'Postorder başlıyor'  : 'Postorder starting',
+    levelorder: lang === 'tr' ? 'Level-Order başlıyor': 'Level-Order starting',
   };
-  const done = lang === 'tr' ? 'Tamamlandi' : 'Completed';
+  const done = lang === 'tr' ? 'Tamamlandı' : 'Completed';
   const steps = [{ visited: [], current: null, message: labels[type], phase: 'start' }];
   const v = [];
   if (type === 'inorder')    inorder(tree, steps, v, lang);
@@ -99,9 +99,9 @@ function TreeViz({ step }) {
 
 function TraversalView({ type, setType, lang }) {
   const traversals = [
-    { id: 'inorder',    label: 'Inorder',     desc: lang === 'tr' ? 'Sol -> Kok -> Sag' : 'Left -> Root -> Right' },
-    { id: 'preorder',   label: 'Preorder',    desc: lang === 'tr' ? 'Kok -> Sol -> Sag' : 'Root -> Left -> Right' },
-    { id: 'postorder',  label: 'Postorder',   desc: lang === 'tr' ? 'Sol -> Sag -> Kok' : 'Left -> Right -> Root' },
+    { id: 'inorder',    label: 'Inorder',     desc: lang === 'tr' ? 'Sol -> Kök -> Sağ' : 'Left -> Root -> Right' },
+    { id: 'preorder',   label: 'Preorder',    desc: lang === 'tr' ? 'Kök -> Sol -> Sağ' : 'Root -> Left -> Right' },
+    { id: 'postorder',  label: 'Postorder',   desc: lang === 'tr' ? 'Sol -> Sağ -> Kök' : 'Left -> Right -> Root' },
     { id: 'levelorder', label: 'Level-Order', desc: lang === 'tr' ? 'Seviye Seviye'     : 'Level by Level'        },
   ];
 
@@ -140,7 +140,7 @@ function TraversalView({ type, setType, lang }) {
       <InfoPanel message={step.message}
         complexity={{ [t(lang, 'complexity.time')]: 'O(n)', [t(lang, 'complexity.space')]: 'O(h)', 'Method': currentT?.desc }}
         pseudocode={`procedure ${type}(node)\n  if node is null: return\n  // ${currentT?.desc}\n  process(node)`}
-        description={lang === 'tr' ? `${currentT?.label} gezintisi: ${currentT?.desc} sirasini takip eder.` : `${currentT?.label} traversal follows ${currentT?.desc} order.`}
+        description={lang === 'tr' ? `${currentT?.label} gezintisi: ${currentT?.desc} sırasını takip eder.` : `${currentT?.label} traversal follows ${currentT?.desc} order.`}
         lang={lang} />
     </div>
   );

@@ -51,7 +51,7 @@ export default function MergeSort({ lang = 'tr' }) {
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gradient mb-2">Merge Sort</h2>
         <p className="text-gray-500 dark:text-gray-400">
-          {lang === 'tr' ? 'Bol ve yonet ile O(n log n) garantili siralama' : 'Divide and conquer sorting with guaranteed O(n log n)'}
+          {lang === 'tr' ? 'Böl ve yönet ile O(n log n) garantili sıralama' : 'Divide and conquer sorting with guaranteed O(n log n)'}
         </p>
       </div>
 
@@ -87,7 +87,7 @@ export default function MergeSort({ lang = 'tr' }) {
       <ControlPanel state={state} lang={lang} />
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure mergeSort(A, lo, hi)\n  if lo >= hi: return\n  mid = (lo+hi)/2\n  mergeSort(A, lo, mid)\n  mergeSort(A, mid+1, hi)\n  merge(A, lo, mid, hi)`}
-        description={lang === 'tr' ? 'Merge Sort diziyi tekrar tekrar ikiye boler, her yariyi siralar ve birlесtirir.' : 'Merge Sort repeatedly divides the array in half, sorts each half, and merges them.'}
+        description={lang === 'tr' ? 'Merge Sort diziyi tekrar tekrar ikiye böler, her yarıyı sıralar ve birleştirir.' : 'Merge Sort repeatedly divides the array in half, sorts each half, and merges them.'}
         lang={lang} />
     </div>
   );

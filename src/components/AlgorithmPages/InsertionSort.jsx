@@ -48,7 +48,7 @@ export default function InsertionSort({ lang = 'tr' }) {
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gradient mb-2">Insertion Sort</h2>
         <p className="text-gray-500 dark:text-gray-400">
-          {lang === 'tr' ? 'Elemanlari sirali alt listeye birer birer ekler' : 'Builds sorted list by inserting elements one at a time'}
+          {lang === 'tr' ? 'Elemanları sıralı alt listeye birer birer ekler' : 'Builds sorted list by inserting elements one at a time'}
         </p>
       </div>
 
@@ -84,7 +84,7 @@ export default function InsertionSort({ lang = 'tr' }) {
       <ControlPanel state={state} lang={lang} />
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure insertionSort(A)\n  for i = 1 to n-1\n    key = A[i]; j = i-1\n    while j >= 0 and A[j] > key\n      A[j+1] = A[j]; j--\n    A[j+1] = key`}
-        description={lang === 'tr' ? 'Insertion Sort her yeni elemani dogru pozisyona kaydirarak kismen sirali dizi olusturur.' : 'Insertion Sort builds a sorted portion by inserting each new element into its correct position.'}
+        description={lang === 'tr' ? 'Insertion Sort her yeni elemanı doğru pozisyona kaydırarak kısmen sıralı dizi oluşturur.' : 'Insertion Sort builds a sorted portion by inserting each new element into its correct position.'}
         lang={lang} />
     </div>
   );

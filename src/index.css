@@ -11,9 +11,15 @@
     margin: 0;
     transition: background-color 0.3s, color 0.3s;
   }
+  :where(.dark) body {
+    background-color: #030712;
+    color: #f3f4f6;
+  }
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: #f3f4f6; }
   ::-webkit-scrollbar-thumb { background: #818cf8; border-radius: 9999px; }
+  :where(.dark) ::-webkit-scrollbar-track { background: #111827; }
+  :where(.dark) ::-webkit-scrollbar-thumb { background: #4f46e5; }
 }
 
 @layer components {

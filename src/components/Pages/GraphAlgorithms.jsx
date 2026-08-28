@@ -7,16 +7,16 @@ export default function GraphAlgorithms({ setPage, lang = 'tr', selected = null,
   const algos = [
     {
       id: 'bfs', label: 'BFS',
-      subtitle: lang === 'tr' ? 'Genislik Oncelikli Arama' : 'Breadth-First Search',
+      subtitle: lang === 'tr' ? 'Genişlik Öncelikli Arama' : 'Breadth-First Search',
       tag: 'O(V+E)',
-      desc: lang === 'tr' ? 'Seviye seviye arama. Agirliksiz grafta en kisa yol garantisi.' : 'Level-by-level search. Guarantees shortest path in unweighted graphs.',
+      desc: lang === 'tr' ? 'Seviye seviye arama. Ağırlıksız grafta en kısa yol garantisi.' : 'Level-by-level search. Guarantees shortest path in unweighted graphs.',
       component: BFS,
     },
     {
       id: 'dfs', label: 'DFS',
-      subtitle: lang === 'tr' ? 'Derinlik Oncelikli Arama' : 'Depth-First Search',
+      subtitle: lang === 'tr' ? 'Derinlik Öncelikli Arama' : 'Depth-First Search',
       tag: 'O(V+E)',
-      desc: lang === 'tr' ? 'Derinlik oncelikli ozyinelemeli arama. Topolojik siralama icin ideal.' : 'Deep recursive search. Ideal for topological sorting and cycle detection.',
+      desc: lang === 'tr' ? 'Derinlik öncelikli özyinelemeli arama. Topolojik sıralama için ideal.' : 'Deep recursive search. Ideal for topological sorting and cycle detection.',
       component: DFS,
     },
   ];

@@ -35,7 +35,7 @@ export default function BFS({ lang = 'tr' }) {
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gradient mb-2">BFS</h2>
         <p className="text-gray-500 dark:text-gray-400">
-          {lang === 'tr' ? 'Breadth-First Search — Genislik Oncelikli Arama' : 'Breadth-First Search — Level by level graph traversal'}
+          {lang === 'tr' ? 'Breadth-First Search — Genişlik Öncelikli Arama' : 'Breadth-First Search — Level by level graph traversal'}
         </p>
       </div>
 
@@ -91,7 +91,7 @@ export default function BFS({ lang = 'tr' }) {
       <ControlPanel state={state} lang={lang} />
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure BFS(G, start)\n  visited = {start}\n  queue = [start]\n  while queue not empty\n    node = queue.dequeue()\n    process(node)\n    for neighbor in G[node]\n      if not visited: enqueue(neighbor)`}
-        description={lang === 'tr' ? 'BFS kuyruga aldigi dugumleri seviye seviye ziyaret eder. Agirliksiz grafta en kisa yolu garantiler.' : 'BFS visits nodes level by level using a queue. Guarantees shortest path in unweighted graphs.'}
+        description={lang === 'tr' ? 'BFS kuyruğa aldığı düğümleri seviye seviye ziyaret eder. Ağırlıksız grafta en kısa yolu garantiler.' : 'BFS visits nodes level by level using a queue. Guarantees shortest path in unweighted graphs.'}
         lang={lang} />
     </div>
   );

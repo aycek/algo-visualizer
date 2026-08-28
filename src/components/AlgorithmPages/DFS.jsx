@@ -34,7 +34,7 @@ export default function DFS({ lang = 'tr' }) {
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gradient mb-2">DFS</h2>
         <p className="text-gray-500 dark:text-gray-400">
-          {lang === 'tr' ? 'Depth-First Search — Derinlik Oncelikli Arama' : 'Depth-First Search — Deep recursive graph traversal'}
+          {lang === 'tr' ? 'Depth-First Search — Derinlik Öncelikli Arama' : 'Depth-First Search — Deep recursive graph traversal'}
         </p>
       </div>
 
@@ -84,7 +84,7 @@ export default function DFS({ lang = 'tr' }) {
       <ControlPanel state={state} lang={lang} />
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure DFS(G, node, visited)\n  visited.add(node)\n  process(node)\n  for neighbor in G[node]\n    if not visited\n      DFS(G, neighbor, visited)`}
-        description={lang === 'tr' ? 'DFS mumkun oldukca derine iner, sonra geri donerek diger dallari kesfeder.' : 'DFS explores as deep as possible before backtracking to explore other branches.'}
+        description={lang === 'tr' ? 'DFS mümkün olduğunca derine iner, sonra geri dönerek diğer dalları keşfeder.' : 'DFS explores as deep as possible before backtracking to explore other branches.'}
         lang={lang} />
     </div>
   );

@@ -3,7 +3,7 @@ export function generateBubbleSortSteps(arr, lang = 'tr') {
   const steps = [];
   const a = [...arr];
   const msg = lang === 'tr'
-    ? { start: 'Bubble Sort basliyor...', compare: (i,j,ai,aj) => `a[${i}]=${ai} ve a[${j}]=${aj} karsilastiriliyor`, swap: (i,j) => `a[${i}] ve a[${j}] yer degistirdi`, done: 'Dizi siralanmis!' }
+    ? { start: 'Bubble Sort başlıyor...', compare: (i,j,ai,aj) => `a[${i}]=${ai} ve a[${j}]=${aj} karşılaştırılıyor`, swap: (i,j) => `a[${i}] ve a[${j}] yer değiştirdi`, done: 'Dizi sıralandı!' }
     : { start: 'Bubble Sort starting...', compare: (i,j,ai,aj) => `Comparing a[${i}]=${ai} and a[${j}]=${aj}`, swap: (i,j) => `Swapped a[${i}] and a[${j}]`, done: 'Array sorted!' };
 
   steps.push({ array: [...a], comparing: [], swapped: [], sorted: [], message: msg.start, phase: 'start' });
@@ -29,7 +29,7 @@ export function generateSelectionSortSteps(arr, lang = 'tr') {
   const a = [...arr];
   const sorted = new Set();
   const msg = lang === 'tr'
-    ? { start: 'Selection Sort basliyor...', finding: (i) => `Pozisyon ${i} icin minimum araniyor`, compare: (j,mj,aj,amj) => `a[${j}]=${aj} ile min a[${mj}]=${amj} karsilastiriliyor`, newMin: (mj,amj) => `Yeni minimum: a[${mj}]=${amj}`, swap: (i,mj) => `a[${i}] ve a[${mj}] yer degistirdi`, done: 'Dizi siralanmis!' }
+    ? { start: 'Selection Sort başlıyor...', finding: (i) => `Pozisyon ${i} için minimum aranıyor`, compare: (j,mj,aj,amj) => `a[${j}]=${aj} ile min a[${mj}]=${amj} karşılaştırılıyor`, newMin: (mj,amj) => `Yeni minimum: a[${mj}]=${amj}`, swap: (i,mj) => `a[${i}] ve a[${mj}] yer değiştirdi`, done: 'Dizi sıralandı!' }
     : { start: 'Selection Sort starting...', finding: (i) => `Finding minimum for position ${i}`, compare: (j,mj,aj,amj) => `Comparing a[${j}]=${aj} with min a[${mj}]=${amj}`, newMin: (mj,amj) => `New minimum: a[${mj}]=${amj}`, swap: (i,mj) => `Swapped a[${i}] and a[${mj}]`, done: 'Array sorted!' };
 
   steps.push({ array: [...a], comparing: [], minIdx: -1, sorted: [], message: msg.start, phase: 'start' });
@@ -59,7 +59,7 @@ export function generateInsertionSortSteps(arr, lang = 'tr') {
   const steps = [];
   const a = [...arr];
   const msg = lang === 'tr'
-    ? { start: 'Insertion Sort basliyor...', pick: (i,v) => `a[${i}]=${v} eklenecek`, shift: (j,v) => `a[${j}]=${v} bir saga kaydirildi`, insert: (v,p) => `${v} pozisyon ${p}'e yerlestirildi`, done: 'Dizi siralanmis!' }
+    ? { start: 'Insertion Sort başlıyor...', pick: (i,v) => `a[${i}]=${v} eklenecek`, shift: (j,v) => `a[${j}]=${v} bir sağa kaydırıldı`, insert: (v,p) => `${v} pozisyon ${p}'e yerleştirildi`, done: 'Dizi sıralandı!' }
     : { start: 'Insertion Sort starting...', pick: (i,v) => `a[${i}]=${v} will be inserted`, shift: (j,v) => `a[${j}]=${v} shifted right`, insert: (v,p) => `${v} placed at position ${p}`, done: 'Array sorted!' };
 
   steps.push({ array: [...a], comparing: [], inserted: -1, sorted: [0], message: msg.start, phase: 'start' });
@@ -75,7 +75,7 @@ export function generateInsertionSortSteps(arr, lang = 'tr') {
     a[j + 1] = key;
     steps.push({ array: [...a], comparing: [], inserted: j + 1, sorted: [...Array(i + 1).keys()], message: msg.insert(key, j + 1), phase: 'insert' });
   }
-  steps.push({ array: [...a], comparing: [], inserted: -1, sorted: [...Array(a.length).keys()], message: lang === 'tr' ? 'Dizi siralanmis!' : 'Array sorted!', phase: 'done' });
+  steps.push({ array: [...a], comparing: [], inserted: -1, sorted: [...Array(a.length).keys()], message: lang === 'tr' ? 'Dizi sıralandı!' : 'Array sorted!', phase: 'done' });
   return steps;
 }
 
@@ -85,7 +85,7 @@ export function generateBinarySearchSteps(arr, target, lang = 'tr') {
   const a = [...arr].sort((x, y) => x - y);
   let lo = 0, hi = a.length - 1;
   const msg = lang === 'tr'
-    ? { start: (t) => `${t} araniyor (sirali dizi)`, check: (mid,v,l,h) => `Ortadaki: a[${mid}]=${v}  lo=${l}, hi=${h}`, found: (mid,t) => `Bulundu! a[${mid}]=${t}`, right: (v,t) => `${v} < ${t} -> sag yariya gec`, left: (v,t) => `${v} > ${t} -> sol yariya gec`, notFound: (t) => `${t} dizide bulunamadi` }
+    ? { start: (t) => `${t} aranıyor (sıralı dizi)`, check: (mid,v,l,h) => `Ortadaki: a[${mid}]=${v}  lo=${l}, hi=${h}`, found: (mid,t) => `Bulundu! a[${mid}]=${t}`, right: (v,t) => `${v} < ${t} -> sağ yarıya geç`, left: (v,t) => `${v} > ${t} -> sol yarıya geç`, notFound: (t) => `${t} dizide bulunamadı` }
     : { start: (t) => `Searching for ${t} (sorted array)`, check: (mid,v,l,h) => `Middle: a[${mid}]=${v}  lo=${l}, hi=${h}`, found: (mid,t) => `Found! a[${mid}]=${t}`, right: (v,t) => `${v} < ${t} -> go right half`, left: (v,t) => `${v} > ${t} -> go left half`, notFound: (t) => `${t} not found in array` };
 
   steps.push({ array: a, lo, hi, mid: -1, found: -1, target, message: msg.start(target), phase: 'start' });
@@ -111,7 +111,7 @@ export function generateBinarySearchSteps(arr, target, lang = 'tr') {
 export function generateLinearSearchSteps(arr, target, lang = 'tr') {
   const steps = [];
   const msg = lang === 'tr'
-    ? { start: (t) => `${t} araniyor`, check: (i,v) => `a[${i}]=${v} kontrol ediliyor`, found: (i,t) => `Bulundu! a[${i}]=${t}`, notFound: (t) => `${t} dizide yok` }
+    ? { start: (t) => `${t} aranıyor`, check: (i,v) => `a[${i}]=${v} kontrol ediliyor`, found: (i,t) => `Bulundu! a[${i}]=${t}`, notFound: (t) => `${t} dizide yok` }
     : { start: (t) => `Searching for ${t}`, check: (i,v) => `Checking a[${i}]=${v}`, found: (i,t) => `Found! a[${i}]=${t}`, notFound: (t) => `${t} not in array` };
 
   steps.push({ array: arr, current: -1, found: -1, target, message: msg.start(target), phase: 'start' });
@@ -134,7 +134,7 @@ export function generateBFSSteps(graph, startNode, lang = 'tr') {
   visited.add(startNode);
   const visitedOrder = [];
   const msg = lang === 'tr'
-    ? { start: (n) => `BFS basliyor - baslangic: ${n}`, visit: (n) => `${n} ziyaret edildi`, enqueue: (n) => `${n} kuyruga eklendi`, done: (o) => `BFS tamamlandi. Sira: ${o}` }
+    ? { start: (n) => `BFS başlıyor - başlangıç: ${n}`, visit: (n) => `${n} ziyaret edildi`, enqueue: (n) => `${n} kuyruğa eklendi`, done: (o) => `BFS tamamlandı. Sıra: ${o}` }
     : { start: (n) => `BFS starting - start node: ${n}`, visit: (n) => `Visited ${n}`, enqueue: (n) => `${n} added to queue`, done: (o) => `BFS done. Order: ${o}` };
 
   steps.push({ visited: [], queue: [startNode], current: null, message: msg.start(startNode), phase: 'start' });
@@ -160,7 +160,7 @@ export function generateDFSSteps(graph, startNode, lang = 'tr') {
   const visited = new Set();
   const visitedOrder = [];
   const msg = lang === 'tr'
-    ? { start: (n) => `DFS basliyor - baslangic: ${n}`, visit: (n) => `${n} ziyaret edildi`, explore: (a,b) => `${a} -> ${b} kenari izleniyor`, backtrack: (n) => `${n}'a geri donuldu`, done: (o) => `DFS tamamlandi. Sira: ${o}` }
+    ? { start: (n) => `DFS başlıyor - başlangıç: ${n}`, visit: (n) => `${n} ziyaret edildi`, explore: (a,b) => `${a} -> ${b} kenarı izleniyor`, backtrack: (n) => `${n}'a geri dönüldü`, done: (o) => `DFS tamamlandı. Sıra: ${o}` }
     : { start: (n) => `DFS starting - start node: ${n}`, visit: (n) => `Visited ${n}`, explore: (a,b) => `Exploring edge ${a} -> ${b}`, backtrack: (n) => `Backtracked to ${n}`, done: (o) => `DFS done. Order: ${o}` };
 
   steps.push({ visited: [], stack: [startNode], current: null, message: msg.start(startNode), phase: 'start' });
@@ -186,7 +186,7 @@ export function generateMergeSortSteps(arr, lang = 'tr') {
   const steps = [];
   const a = [...arr];
   const msg = lang === 'tr'
-    ? { start: 'Merge Sort basliyor...', compare: (l,r) => `${l} ile ${r} karsilastiriliyor`, place: (v) => `${v} yerlestirildi`, copy: (v) => `${v} kopyalandi`, divide: (lo,mid,hi) => `[${lo}..${mid}] ve [${mid+1}..${hi}] bolunuyor`, merged: (lo,hi) => `[${lo}..${hi}] birlestirdi`, done: 'Dizi siralanmis!' }
+    ? { start: 'Merge Sort başlıyor...', compare: (l,r) => `${l} ile ${r} karşılaştırılıyor`, place: (v) => `${v} yerleştirildi`, copy: (v) => `${v} kopyalandı`, divide: (lo,mid,hi) => `[${lo}..${mid}] ve [${mid+1}..${hi}] bölünüyor`, merged: (lo,hi) => `[${lo}..${hi}] birleştirildi`, done: 'Dizi sıralandı!' }
     : { start: 'Merge Sort starting...', compare: (l,r) => `Comparing ${l} and ${r}`, place: (v) => `Placed ${v}`, copy: (v) => `Copied ${v}`, divide: (lo,mid,hi) => `Dividing [${lo}..${mid}] and [${mid+1}..${hi}]`, merged: (lo,hi) => `Merged [${lo}..${hi}]`, done: 'Array sorted!' };
 
   steps.push({ array: [...a], highlighting: [], message: msg.start, phase: 'start' });
@@ -223,21 +223,21 @@ export function generateMergeSortSteps(arr, lang = 'tr') {
 // ─── QUIZ QUESTIONS ────────────────────────────────────────────────────────
 export const quizQuestions = {
   tr: [
-    { id: 1, difficulty: 'easy', question: 'Binary Search algoritmasinin zaman karmasikligi nedir?', options: ['O(n)', 'O(log n)', 'O(n2)', 'O(1)'], correct: 1, explanation: 'Binary Search her adimda arama alanini yariya boler, bu nedenle O(log n) karmasikligina sahiptir.' },
-    { id: 2, difficulty: 'easy', question: 'Bubble Sort hangi durum icin en kotu zaman karmasikligina sahiptir?', options: ['Sirali dizi', 'Rastgele dizi', 'Ters sirali dizi', 'Tek elemanli dizi'], correct: 2, explanation: 'Ters sirali dizide her eleman icin maksimum takas yapilir: O(n2).' },
-    { id: 3, difficulty: 'easy', question: 'BFS hangi veri yapisini kullanir?', options: ['Stack', 'Queue', 'Heap', 'Tree'], correct: 1, explanation: 'BFS (Breadth-First Search) FIFO yapisi olan Queue kullanir.' },
-    { id: 4, difficulty: 'easy', question: "Linear Search'un en kotu zaman karmasikligi nedir?", options: ['O(1)', 'O(log n)', 'O(n)', 'O(n2)'], correct: 2, explanation: 'Linear Search en kotu durumda tum elemanlari taramak zorundadir: O(n).' },
-    { id: 5, difficulty: 'easy', question: 'Selection Sort un zaman karmasikligi nedir?', options: ['O(n log n)', 'O(n)', 'O(n2)', 'O(log n)'], correct: 2, explanation: 'Selection Sort iki ic ice dongu kullandigindan O(n2) karmasikligina sahiptir.' },
-    { id: 6, difficulty: 'medium', question: 'DFS hangi veri yapisini kullanir?', options: ['Queue', 'Stack (veya recursion)', 'Heap', 'Linked List'], correct: 1, explanation: 'DFS (Depth-First Search) LIFO yapisi olan Stack veya ozyineleme kullanir.' },
-    { id: 7, difficulty: 'medium', question: "Binary Search'un calismasi icin dizinin ozelligi ne olmalidir?", options: ['Siralanmis olmali', 'Siralanmamis olmali', 'Tek elemanlar icermeli', 'Cift sayilar icermeli'], correct: 0, explanation: 'Binary Search sadece sirali dizilerde calisir, aksi halde dogru sonuc vermez.' },
-    { id: 8, difficulty: 'medium', question: 'Insertion Sort hangi durumda en verimlidir?', options: ['Ters sirali dizi', 'Neredeyse sirali dizi', 'Rastgele dizi', 'Buyuk diziler'], correct: 1, explanation: 'Insertion Sort neredeyse sirali dizilerde O(n) performansiyla calisir.' },
-    { id: 9, difficulty: 'medium', question: 'BFS grafta ne garantiler?', options: ['En derin yolu bulur', 'En kisa yolu bulur', 'Her zaman en hizlidir', 'Dongu tespit eder'], correct: 1, explanation: 'Agirliksiz grafta BFS, baslangic ile hedef arasindaki en kisa yolu garantiler.' },
-    { id: 10, difficulty: 'medium', question: 'Merge Sort un zaman karmasikligi nedir?', options: ['O(n2)', 'O(n)', 'O(n log n)', 'O(log n)'], correct: 2, explanation: 'Merge Sort diziyi log n seviyede boler ve her seviyede O(n) islem yapar.' },
-    { id: 11, difficulty: 'hard', question: 'Hangi siralama algoritmasi en kotu durumda O(n log n) garantisi verir?', options: ['Quick Sort', 'Bubble Sort', 'Merge Sort', 'Selection Sort'], correct: 2, explanation: 'Merge Sort her durumda O(n log n) garantisi saglar. Quick Sort en kotu durumda O(n2) olabilir.' },
-    { id: 12, difficulty: 'hard', question: 'Graf icin BFS ve DFS hangi karmasikliga sahiptir?', options: ['O(V)', 'O(E)', 'O(V + E)', 'O(V x E)'], correct: 2, explanation: 'Hem BFS hem DFS her dugumu ve kenari bir kez ziyaret eder: O(V + E).' },
-    { id: 13, difficulty: 'hard', question: 'n elemanli sirali dizide Binary Search kac adimda sonuc verir (en kotu)?', options: ['n', 'n/2', 'log2(n)', 'sqrt(n)'], correct: 2, explanation: 'Her adimda arama alani yariya iner; en kotu durumda log2(n) adim gerekir.' },
-    { id: 14, difficulty: 'hard', question: 'Hangi algoritma "divide and conquer" paradigmasini kullanmaz?', options: ['Merge Sort', 'Binary Search', 'Bubble Sort', 'Quick Sort'], correct: 2, explanation: 'Bubble Sort karsilastirma tabanli basit bir algoritmadur; bol-ve-yonet kullanmaz.' },
-    { id: 15, difficulty: 'hard', question: 'O(n log n) karmasiklikla calisan siralama algoritmasi hangisidir?', options: ['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Merge Sort'], correct: 3, explanation: 'Merge Sort O(n log n) ile calisan en verimli algoritmalardan biridir.' },
+    { id: 1, difficulty: 'easy', question: 'Binary Search algoritmasının zaman karmaşıklığı nedir?', options: ['O(n)', 'O(log n)', 'O(n2)', 'O(1)'], correct: 1, explanation: 'Binary Search her adımda arama alanını yarıya böler, bu nedenle O(log n) karmaşıklığına sahiptir.' },
+    { id: 2, difficulty: 'easy', question: 'Bubble Sort hangi durum için en kötü zaman karmaşıklığına sahiptir?', options: ['Sıralı dizi', 'Rastgele dizi', 'Ters sıralı dizi', 'Tek elemanlı dizi'], correct: 2, explanation: 'Ters sıralı dizide her eleman için maksimum takas yapılır: O(n2).' },
+    { id: 3, difficulty: 'easy', question: 'BFS hangi veri yapısını kullanır?', options: ['Stack', 'Queue', 'Heap', 'Tree'], correct: 1, explanation: 'BFS (Breadth-First Search) FIFO yapısı olan Queue kullanır.' },
+    { id: 4, difficulty: 'easy', question: "Linear Search'ın en kötü zaman karmaşıklığı nedir?", options: ['O(1)', 'O(log n)', 'O(n)', 'O(n2)'], correct: 2, explanation: 'Linear Search en kötü durumda tüm elemanları taramak zorundadır: O(n).' },
+    { id: 5, difficulty: 'easy', question: "Selection Sort'un zaman karmaşıklığı nedir?", options: ['O(n log n)', 'O(n)', 'O(n2)', 'O(log n)'], correct: 2, explanation: 'Selection Sort iki iç içe döngü kullandığından O(n2) karmaşıklığına sahiptir.' },
+    { id: 6, difficulty: 'medium', question: 'DFS hangi veri yapısını kullanır?', options: ['Queue', 'Stack (veya recursion)', 'Heap', 'Linked List'], correct: 1, explanation: 'DFS (Depth-First Search) LIFO yapısı olan Stack veya özyineleme kullanır.' },
+    { id: 7, difficulty: 'medium', question: "Binary Search'ın çalışması için dizinin özelliği ne olmalıdır?", options: ['Sıralanmış olmalı', 'Sıralanmamış olmalı', 'Tek elemanlar içermeli', 'Çift sayılar içermeli'], correct: 0, explanation: 'Binary Search sadece sıralı dizilerde çalışır, aksi halde doğru sonuç vermez.' },
+    { id: 8, difficulty: 'medium', question: 'Insertion Sort hangi durumda en verimlidir?', options: ['Ters sıralı dizi', 'Neredeyse sıralı dizi', 'Rastgele dizi', 'Büyük diziler'], correct: 1, explanation: 'Insertion Sort neredeyse sıralı dizilerde O(n) performansıyla çalışır.' },
+    { id: 9, difficulty: 'medium', question: 'BFS grafta ne garantiler?', options: ['En derin yolu bulur', 'En kısa yolu bulur', 'Her zaman en hızlıdır', 'Döngü tespit eder'], correct: 1, explanation: 'Ağırlıksız grafta BFS, başlangıç ile hedef arasındaki en kısa yolu garantiler.' },
+    { id: 10, difficulty: 'medium', question: "Merge Sort'un zaman karmaşıklığı nedir?", options: ['O(n2)', 'O(n)', 'O(n log n)', 'O(log n)'], correct: 2, explanation: 'Merge Sort diziyi log n seviyede böler ve her seviyede O(n) işlem yapar.' },
+    { id: 11, difficulty: 'hard', question: 'Hangi sıralama algoritması en kötü durumda O(n log n) garantisi verir?', options: ['Quick Sort', 'Bubble Sort', 'Merge Sort', 'Selection Sort'], correct: 2, explanation: 'Merge Sort her durumda O(n log n) garantisi sağlar. Quick Sort en kötü durumda O(n2) olabilir.' },
+    { id: 12, difficulty: 'hard', question: 'Graf için BFS ve DFS hangi karmaşıklığa sahiptir?', options: ['O(V)', 'O(E)', 'O(V + E)', 'O(V x E)'], correct: 2, explanation: 'Hem BFS hem DFS her düğümü ve kenarı bir kez ziyaret eder: O(V + E).' },
+    { id: 13, difficulty: 'hard', question: 'n elemanlı sıralı dizide Binary Search kaç adımda sonuç verir (en kötü)?', options: ['n', 'n/2', 'log2(n)', 'sqrt(n)'], correct: 2, explanation: 'Her adımda arama alanı yarıya iner; en kötü durumda log2(n) adım gerekir.' },
+    { id: 14, difficulty: 'hard', question: 'Hangi algoritma "divide and conquer" paradigmasını kullanmaz?', options: ['Merge Sort', 'Binary Search', 'Bubble Sort', 'Quick Sort'], correct: 2, explanation: 'Bubble Sort karşılaştırma tabanlı basit bir algoritmadır; böl-ve-yönet kullanmaz.' },
+    { id: 15, difficulty: 'hard', question: 'O(n log n) karmaşıklıkla çalışan sıralama algoritması hangisidir?', options: ['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Merge Sort'], correct: 3, explanation: 'Merge Sort O(n log n) ile çalışan en verimli algoritmalardan biridir.' },
   ],
   en: [
     { id: 1, difficulty: 'easy', question: 'What is the time complexity of Binary Search?', options: ['O(n)', 'O(log n)', 'O(n2)', 'O(1)'], correct: 1, explanation: 'Binary Search halves the search space each step, giving O(log n) complexity.' },

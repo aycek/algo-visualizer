@@ -1,6 +1,7 @@
 import { useTheme } from './hooks/useTheme';
 import { useLang } from './hooks/useLang';
 import { useHashRoute } from './hooks/useHashRoute';
+import { t } from './utils/i18n';
 import Header from './components/Layout/Header';
 import Home from './components/Pages/Home';
 import ArrayAlgorithms from './components/Pages/ArrayAlgorithms';
@@ -31,7 +32,7 @@ export default function App() {
       <Header dark={dark} toggleDark={toggleDark} lang={lang} toggleLang={toggleLang} page={page} setPage={setPage} />
       <main className="pb-16">{renderPage()}</main>
       <footer className="border-t border-gray-100 dark:border-gray-800 py-6 text-center text-xs text-gray-400">
-        AlgoViz {lang === 'tr' ? '— Algoritmalari gorsellestir, oren, kesfet' : '— Visualize, learn and explore algorithms'} ✨
+        {t(lang, 'footer')} ✨
       </footer>
     </div>
   );

@@ -49,16 +49,17 @@ export default function Header({ dark, toggleDark, lang, toggleLang, page, setPa
             <button
               onClick={toggleLang}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all text-sm font-semibold text-gray-700 dark:text-gray-200"
-              title="Change language"
+              title={lang === 'tr' ? 'Dili değiştir' : 'Change language'}
             >
               <Globe size={14} />
-              {lang === 'tr' ? 'EN' : 'TR'}
+              {lang === 'tr' ? 'TR' : 'EN'}
             </button>
             <button
               onClick={toggleDark}
               className="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+              title={dark ? (lang === 'tr' ? 'Aydınlık moda geç' : 'Switch to light mode') : (lang === 'tr' ? 'Karanlık moda geç' : 'Switch to dark mode')}
             >
-              {dark ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-indigo-500" />}
+              {dark ? <Moon size={18} className="text-indigo-400" /> : <Sun size={18} className="text-amber-500" />}
             </button>
             <button
               onClick={() => setMenuOpen(o => !o)}

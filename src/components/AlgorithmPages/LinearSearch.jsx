@@ -44,7 +44,7 @@ export default function LinearSearch({ lang = 'tr' }) {
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gradient mb-2">Linear Search</h2>
         <p className="text-gray-500 dark:text-gray-400">
-          {lang === 'tr' ? 'Dizide bastан sona tek tek kontrol eder' : 'Checks each element one by one from start to end'}
+          {lang === 'tr' ? 'Dizide baştan sona tek tek kontrol eder' : 'Checks each element one by one from start to end'}
         </p>
       </div>
 
@@ -82,7 +82,7 @@ export default function LinearSearch({ lang = 'tr' }) {
       <ControlPanel state={state} lang={lang} />
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure linearSearch(A, target)\n  for i = 0 to n-1\n    if A[i] == target\n      return i\n  return -1`}
-        description={lang === 'tr' ? 'Linear Search en basit arama algoritmasidir. Siralanmamis dizilerde kullanilabilir.' : 'Linear Search is the simplest search algorithm. Works on unsorted arrays.'}
+        description={lang === 'tr' ? 'Linear Search en basit arama algoritmasıdır. Sıralanmamış dizilerde kullanılabilir.' : 'Linear Search is the simplest search algorithm. Works on unsorted arrays.'}
         lang={lang} />
     </div>
   );

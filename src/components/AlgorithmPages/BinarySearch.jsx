@@ -44,7 +44,7 @@ export default function BinarySearch({ lang = 'tr' }) {
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gradient mb-2">Binary Search</h2>
         <p className="text-gray-500 dark:text-gray-400">
-          {lang === 'tr' ? 'Sirali dizide arama alanini her adimda yariya boler' : 'Halves the search space each step on a sorted array'}
+          {lang === 'tr' ? 'Sıralı dizide arama alanını her adımda yarıya böler' : 'Halves the search space each step on a sorted array'}
         </p>
       </div>
 
@@ -87,7 +87,7 @@ export default function BinarySearch({ lang = 'tr' }) {
       <ControlPanel state={state} lang={lang} />
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure binarySearch(A, target)\n  lo = 0; hi = n-1\n  while lo <= hi\n    mid = (lo+hi)/2\n    if A[mid] == target: return mid\n    else if A[mid] < target: lo = mid+1\n    else: hi = mid-1\n  return -1`}
-        description={lang === 'tr' ? 'Binary Search her adimda orta elemani kontrol eder ve arama alanini yariya boler. Sadece sirali dizilerde calisir.' : 'Binary Search checks the middle element each step and halves the search space. Only works on sorted arrays.'}
+        description={lang === 'tr' ? 'Binary Search her adımda orta elemanı kontrol eder ve arama alanını yarıya böler. Sadece sıralı dizilerde çalışır.' : 'Binary Search checks the middle element each step and halves the search space. Only works on sorted arrays.'}
         lang={lang} />
     </div>
   );

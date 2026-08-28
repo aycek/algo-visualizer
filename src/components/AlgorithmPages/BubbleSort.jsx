@@ -58,7 +58,7 @@ export default function BubbleSort({ lang = 'tr' }) {
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gradient mb-2">Bubble Sort</h2>
         <p className="text-gray-500 dark:text-gray-400">
-          {lang === 'tr' ? 'Komsu elemanlari karsilastirip yer degistirerek siralar' : 'Repeatedly compares adjacent elements and swaps them if needed'}
+          {lang === 'tr' ? 'Komşu elemanları karşılaştırıp yer değiştirerek sıralar' : 'Repeatedly compares adjacent elements and swaps them if needed'}
         </p>
       </div>
 
@@ -101,7 +101,7 @@ export default function BubbleSort({ lang = 'tr' }) {
 
       <ControlPanel state={state} lang={lang} />
       <InfoPanel message={step.message} complexity={complexity} pseudocode={pseudocode}
-        description={lang === 'tr' ? 'Bubble Sort, tekrar tekrar komsu elemanlari karsilastirir ve gerekirse yer degistirir.' : 'Bubble Sort repeatedly steps through the list, compares adjacent elements and swaps them.'}
+        description={lang === 'tr' ? 'Bubble Sort, tekrar tekrar komşu elemanları karşılaştırır ve gerekirse yer değiştirir.' : 'Bubble Sort repeatedly steps through the list, compares adjacent elements and swaps them.'}
         lang={lang} />
     </div>
   );
