@@ -1,17 +1,29 @@
 import { useState, useMemo } from 'react';
-import { generateDFSSteps, sampleGraph, graphPositions } from '../../utils/algorithmHelpers';
+import { Shuffle } from 'lucide-react';
+import { generateDFSSteps, generateRandomGraph } from '../../utils/algorithmHelpers';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import ControlPanel from '../Common/ControlPanel';
 import InfoPanel from '../Common/InfoPanel';
 import { t } from '../../utils/i18n';
 
-const nodes = Object.keys(sampleGraph);
-const edges = [];
-nodes.forEach(n => sampleGraph[n].forEach(m => { if (n < m) edges.push([n, m]); }));
-
 export default function DFS({ lang = 'tr' }) {
+  const [{ graph, positions }, setGraphData] = useState(() => generateRandomGraph());
   const [start, setStart] = useState('A');
-  const steps = useMemo(() => generateDFSSteps(sampleGraph, start, lang), [start, lang]);
+
+  const nodes = useMemo(() => Object.keys(graph), [graph]);
+  const edges = useMemo(() => {
+    const e = [];
+    nodes.forEach(n => graph[n].forEach(m => { if (n < m) e.push([n, m]); }));
+    return e;
+  }, [graph, nodes]);
+
+  const randomizeGraph = () => {
+    const next = generateRandomGraph();
+    setGraphData(next);
+    setStart(Object.keys(next.graph)[0]);
+  };
+
+  const steps = useMemo(() => generateDFSSteps(graph, start, lang), [graph, start, lang]);
   const state = useAlgorithmState(steps);
   const { step } = state;
 
@@ -38,27 +50,35 @@ export default function DFS({ lang = 'tr' }) {
         </p>
       </div>
 
-      <div className="card">
-        <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">{t(lang, 'algo.startNode')}</label>
-        <div className="flex gap-2">
-          {nodes.map(n => (
-            <button key={n} onClick={() => setStart(n)}
-              className={`w-10 h-10 rounded-xl font-bold text-sm transition-all ${start === n ? 'bg-indigo-600 text-white shadow-lg' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}>
-              {n}
-            </button>
-          ))}
+      <div className="card flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">{t(lang, 'algo.startNode')}</label>
+          <div className="flex gap-2 flex-wrap">
+            {nodes.map(n => (
+              <button key={n} onClick={() => setStart(n)}
+                className={`w-10 h-10 rounded-xl font-bold text-sm transition-all ${start === n ? 'bg-indigo-600 text-white shadow-lg' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}>
+                {n}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-gray-400">{nodes.length} {t(lang, 'algo.nodeCount')}</span>
+          <button onClick={randomizeGraph} className="btn-secondary">
+            <Shuffle size={16} /> {t(lang, 'algo.newGraph')}
+          </button>
         </div>
       </div>
 
       <div className="card">
-        <svg viewBox="0 0 540 340" className="w-full max-h-64">
+        <svg viewBox="0 0 540 360" className="w-full max-h-64">
           {edges.map(([a, b]) => {
-            const pa = graphPositions[a], pb = graphPositions[b];
+            const pa = positions[a], pb = positions[b];
             const isActive = (step.current === a && step.exploring === b) || (step.current === b && step.exploring === a);
             return <line key={`${a}-${b}`} x1={pa.x} y1={pa.y} x2={pb.x} y2={pb.y} stroke={isActive ? '#a78bfa' : '#cbd5e1'} strokeWidth={isActive ? 3 : 1.5} className="transition-all duration-300" />;
           })}
           {nodes.map(n => {
-            const p = graphPositions[n];
+            const p = positions[n];
             return (
               <g key={n}>
                 <circle cx={p.x} cy={p.y} r={26} fill={nodeColor(n)} className="transition-all duration-300"

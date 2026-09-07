@@ -49,6 +49,8 @@ export const translations = {
       visit: 'Ziyaret',
       order: 'Sıra',
       autoSort: 'Dizi (otomatik sıralanır)',
+      newGraph: 'Yeni Graf',
+      nodeCount: 'düğüm',
     },
     complexity: {
       best: 'En İyi',
@@ -169,6 +171,8 @@ export const translations = {
       visit: 'Visited',
       order: 'Order',
       autoSort: 'Array (auto sorted)',
+      newGraph: 'New Graph',
+      nodeCount: 'nodes',
     },
     complexity: {
       best: 'Best',

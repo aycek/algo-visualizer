@@ -8,6 +8,7 @@ import {
   generateLinearSearchSteps,
   generateBFSSteps,
   generateDFSSteps,
+  generateRandomGraph,
   sampleGraph,
 } from './algorithmHelpers';
 
@@ -97,5 +98,54 @@ describe('graph traversal step generators', () => {
     expect(last.visited[0]).toBe('A');
     expect(new Set(last.visited).size).toBe(last.visited.length);
     expect(last.visited.sort()).toEqual(Object.keys(sampleGraph).sort());
+  });
+});
+
+describe('generateRandomGraph', () => {
+  it('produces a node count within the expected range when unspecified', () => {
+    for (let i = 0; i < 20; i++) {
+      const { graph } = generateRandomGraph();
+      const count = Object.keys(graph).length;
+      expect(count).toBeGreaterThanOrEqual(5);
+      expect(count).toBeLessThanOrEqual(8);
+    }
+  });
+
+  it('honors an explicit node count', () => {
+    const { graph, positions } = generateRandomGraph(6);
+    expect(Object.keys(graph)).toHaveLength(6);
+    expect(Object.keys(positions)).toHaveLength(6);
+  });
+
+  it('is always fully connected', () => {
+    for (let i = 0; i < 20; i++) {
+      const { graph } = generateRandomGraph();
+      const nodes = Object.keys(graph);
+      const visited = new Set([nodes[0]]);
+      const queue = [nodes[0]];
+      while (queue.length) {
+        const n = queue.shift();
+        for (const neighbor of graph[n]) {
+          if (!visited.has(neighbor)) { visited.add(neighbor); queue.push(neighbor); }
+        }
+      }
+      expect(visited.size).toBe(nodes.length);
+    }
+  });
+
+  it('keeps the adjacency list symmetric (undirected)', () => {
+    const { graph } = generateRandomGraph(7);
+    for (const [node, neighbors] of Object.entries(graph)) {
+      for (const neighbor of neighbors) {
+        expect(graph[neighbor]).toContain(node);
+      }
+    }
+  });
+
+  it('never produces a self-loop', () => {
+    const { graph } = generateRandomGraph(7);
+    for (const [node, neighbors] of Object.entries(graph)) {
+      expect(neighbors).not.toContain(node);
+    }
   });
 });

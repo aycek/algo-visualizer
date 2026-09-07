@@ -277,3 +277,49 @@ export const graphPositions = {
   E: { x: 230, y: 300 },
   F: { x: 380, y: 300 },
 };
+
+// ─── RANDOM GRAPH GENERATOR ────────────────────────────────────────────────
+export function generateRandomGraph(nodeCount) {
+  const n = nodeCount ?? (5 + Math.floor(Math.random() * 4)); // 5..8 nodes
+  const labels = Array.from({ length: n }, (_, i) => String.fromCharCode(65 + i)); // A, B, C...
+  const graph = {};
+  labels.forEach(l => { graph[l] = []; });
+
+  const addEdge = (a, b) => {
+    if (a === b || graph[a].includes(b)) return;
+    graph[a].push(b);
+    graph[b].push(a);
+  };
+
+  // Random spanning tree first, so the graph is always fully connected.
+  const shuffled = [...labels];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  for (let i = 1; i < shuffled.length; i++) {
+    const parent = shuffled[Math.floor(Math.random() * i)];
+    addEdge(shuffled[i], parent);
+  }
+
+  // Sprinkle a few extra edges on top for branching/cycles.
+  const extraEdges = Math.max(1, Math.floor(n / 3));
+  for (let k = 0; k < extraEdges; k++) {
+    const a = labels[Math.floor(Math.random() * n)];
+    const b = labels[Math.floor(Math.random() * n)];
+    if (a !== b && graph[a].length < 4 && graph[b].length < 4) addEdge(a, b);
+  }
+
+  // Even circular layout so any node count renders cleanly.
+  const cx = 270, cy = 180, r = Math.min(140, 55 + n * 11);
+  const positions = {};
+  labels.forEach((l, i) => {
+    const angle = (2 * Math.PI * i) / n - Math.PI / 2;
+    positions[l] = {
+      x: Math.round(cx + r * Math.cos(angle)),
+      y: Math.round(cy + r * Math.sin(angle)),
+    };
+  });
+
+  return { graph, positions };
+}
