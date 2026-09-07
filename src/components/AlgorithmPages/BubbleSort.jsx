@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useLayoutEffect } from 'react';
 import { generateBubbleSortSteps } from '../../utils/algorithmHelpers';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import { parseArrayInput } from '../../utils/validation';
@@ -16,6 +16,32 @@ export default function BubbleSort({ lang = 'tr' }) {
   const steps = useMemo(() => generateBubbleSortSteps(arr, lang), [arr, lang]);
   const state = useAlgorithmState(steps);
   const { step } = state;
+
+  const barRefs = useRef({});
+
+  useLayoutEffect(() => {
+    if (step.phase !== 'swap' || step.swapped.length !== 2) return;
+    const [left, right] = step.swapped;
+    const elLeft = barRefs.current[left];
+    const elRight = barRefs.current[right];
+    if (!elLeft || !elRight) return;
+
+    const width = elLeft.getBoundingClientRect().width;
+    elLeft.style.transition = 'none';
+    elRight.style.transition = 'none';
+    elLeft.style.transform = `translateX(${width}px)`;
+    elRight.style.transform = `translateX(${-width}px)`;
+    elLeft.getBoundingClientRect();
+    elRight.getBoundingClientRect();
+
+    const raf = requestAnimationFrame(() => {
+      elLeft.style.transition = '';
+      elRight.style.transition = '';
+      elLeft.style.transform = 'translateX(0)';
+      elRight.style.transform = 'translateX(0)';
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [step]);
 
   const apply = () => {
     const { values, error: err } = parseArrayInput(input, { min: 2, max: 12, allowNegative: false, lang });
@@ -76,9 +102,10 @@ export default function BubbleSort({ lang = 'tr' }) {
       <div className="card">
         <div className="flex items-end justify-center gap-2 h-48 px-4">
           {step.array.map((val, i) => (
-            <div key={i} className="flex flex-col items-center gap-1 flex-1 min-w-0">
+            <div key={i} ref={el => { barRefs.current[i] = el; }}
+              className={`flex flex-col items-center gap-1 flex-1 min-w-0 transition-transform duration-300 ${step.swapped.includes(i) ? 'z-10' : ''}`}>
               <span className="text-xs font-bold text-gray-600 dark:text-gray-300">{val}</span>
-              <div className={`w-full rounded-t-lg bg-gradient-to-t ${barColor(i)} transition-all duration-300 shadow-sm`}
+              <div className={`w-full rounded-t-lg bg-gradient-to-t ${barColor(i)} transition-all duration-300 shadow-sm ${step.swapped.includes(i) ? 'scale-110 ring-2 ring-rose-300 shadow-lg shadow-rose-500/40' : ''}`}
                 style={{ height: `${(val / maxVal) * 140}px` }} />
               <span className="text-xs text-gray-400">{i}</span>
             </div>
