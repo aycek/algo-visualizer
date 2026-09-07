@@ -26,21 +26,18 @@ export default function BubbleSort({ lang = 'tr' }) {
     const elRight = barRefs.current[right];
     if (!elLeft || !elRight) return;
 
-    const width = elLeft.getBoundingClientRect().width;
+    const deltaX = elRight.getBoundingClientRect().left - elLeft.getBoundingClientRect().left;
     elLeft.style.transition = 'none';
     elRight.style.transition = 'none';
-    elLeft.style.transform = `translateX(${width}px)`;
-    elRight.style.transform = `translateX(${-width}px)`;
+    elLeft.style.transform = `translateX(${deltaX}px)`;
+    elRight.style.transform = `translateX(${-deltaX}px)`;
     elLeft.getBoundingClientRect();
     elRight.getBoundingClientRect();
 
-    const raf = requestAnimationFrame(() => {
-      elLeft.style.transition = '';
-      elRight.style.transition = '';
-      elLeft.style.transform = 'translateX(0)';
-      elRight.style.transform = 'translateX(0)';
-    });
-    return () => cancelAnimationFrame(raf);
+    elLeft.style.transition = '';
+    elRight.style.transition = '';
+    elLeft.style.transform = 'translateX(0)';
+    elRight.style.transform = 'translateX(0)';
   }, [step]);
 
   const apply = () => {

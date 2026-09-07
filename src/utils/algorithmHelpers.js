@@ -44,8 +44,9 @@ export function generateSelectionSortSteps(arr, lang = 'tr') {
       }
     }
     if (minIdx !== i) {
+      const swappedPair = [i, minIdx];
       [a[i], a[minIdx]] = [a[minIdx], a[i]];
-      steps.push({ array: [...a], comparing: [], minIdx: i, sorted: [...sorted], message: msg.swap(i, minIdx), phase: 'swap' });
+      steps.push({ array: [...a], comparing: [], minIdx: i, swapped: swappedPair, sorted: [...sorted], message: msg.swap(i, minIdx), phase: 'swap' });
     }
     sorted.add(i);
   }

@@ -39,6 +39,8 @@ export default function MergeSort({ lang = 'tr' }) {
     return 'from-indigo-400 to-indigo-600';
   };
 
+  const isPopping = (i) => (step.phase === 'place' || step.phase === 'copy') && step.highlighting.includes(i);
+
   const complexity = {
     [t(lang, 'complexity.best')]: 'O(n log n)',
     [t(lang, 'complexity.avg')]: 'O(n log n)',
@@ -71,7 +73,7 @@ export default function MergeSort({ lang = 'tr' }) {
           {step.array.map((val, i) => (
             <div key={i} className="flex flex-col items-center gap-1 flex-1 min-w-0">
               <span className="text-xs font-bold text-gray-600 dark:text-gray-300">{val}</span>
-              <div className={`w-full rounded-t-lg bg-gradient-to-t ${barColor(i)} transition-all duration-300`}
+              <div className={`w-full rounded-t-lg bg-gradient-to-t ${barColor(i)} transition-all duration-300 ${isPopping(i) ? 'scale-110 ring-2 ring-amber-300 shadow-lg shadow-amber-500/40' : ''}`}
                 style={{ height: `${(val / maxVal) * 140}px` }} />
               <span className="text-xs text-gray-400">{i}</span>
             </div>

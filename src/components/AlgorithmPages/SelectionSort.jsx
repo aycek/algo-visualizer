@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useLayoutEffect } from 'react';
 import { generateSelectionSortSteps } from '../../utils/algorithmHelpers';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import { parseArrayInput } from '../../utils/validation';
@@ -16,6 +16,31 @@ export default function SelectionSort({ lang = 'tr' }) {
   const state = useAlgorithmState(steps);
   const { step } = state;
   const maxVal = Math.max(...step.array);
+  const swapped = step.swapped || [];
+
+  const barRefs = useRef({});
+
+  useLayoutEffect(() => {
+    const pair = step.swapped || [];
+    if (step.phase !== 'swap' || pair.length !== 2) return;
+    const [left, right] = pair;
+    const elLeft = barRefs.current[left];
+    const elRight = barRefs.current[right];
+    if (!elLeft || !elRight) return;
+
+    const deltaX = elRight.getBoundingClientRect().left - elLeft.getBoundingClientRect().left;
+    elLeft.style.transition = 'none';
+    elRight.style.transition = 'none';
+    elLeft.style.transform = `translateX(${deltaX}px)`;
+    elRight.style.transform = `translateX(${-deltaX}px)`;
+    elLeft.getBoundingClientRect();
+    elRight.getBoundingClientRect();
+
+    elLeft.style.transition = '';
+    elRight.style.transition = '';
+    elLeft.style.transform = 'translateX(0)';
+    elRight.style.transform = 'translateX(0)';
+  }, [step]);
 
   const apply = () => {
     const { values, error: err } = parseArrayInput(input, { min: 2, max: 12, allowNegative: false, lang });
@@ -66,9 +91,10 @@ export default function SelectionSort({ lang = 'tr' }) {
       <div className="card">
         <div className="flex items-end justify-center gap-2 h-48 px-4">
           {step.array.map((val, i) => (
-            <div key={i} className="flex flex-col items-center gap-1 flex-1 min-w-0">
+            <div key={i} ref={el => { barRefs.current[i] = el; }}
+              className={`flex flex-col items-center gap-1 flex-1 min-w-0 transition-transform duration-300 ${swapped.includes(i) ? 'z-10' : ''}`}>
               <span className="text-xs font-bold text-gray-600 dark:text-gray-300">{val}</span>
-              <div className={`w-full rounded-t-lg bg-gradient-to-t ${barColor(i)} transition-all duration-300`}
+              <div className={`w-full rounded-t-lg bg-gradient-to-t ${barColor(i)} transition-all duration-300 ${swapped.includes(i) ? 'scale-110 ring-2 ring-rose-300 shadow-lg shadow-rose-500/40' : ''}`}
                 style={{ height: `${(val / maxVal) * 140}px` }} />
               <span className="text-xs text-gray-400">{i}</span>
             </div>

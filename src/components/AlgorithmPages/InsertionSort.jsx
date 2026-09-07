@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useLayoutEffect } from 'react';
 import { generateInsertionSortSteps } from '../../utils/algorithmHelpers';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import { parseArrayInput } from '../../utils/validation';
@@ -16,6 +16,26 @@ export default function InsertionSort({ lang = 'tr' }) {
   const state = useAlgorithmState(steps);
   const { step } = state;
   const maxVal = Math.max(...step.array);
+
+  const barRefs = useRef({});
+
+  useLayoutEffect(() => {
+    if (step.phase !== 'shift' || step.comparing.length !== 2) return;
+    const [from, to] = step.comparing;
+    const elFrom = barRefs.current[from];
+    const elTo = barRefs.current[to];
+    if (!elFrom || !elTo) return;
+
+    const deltaX = elFrom.getBoundingClientRect().left - elTo.getBoundingClientRect().left;
+    elTo.style.transition = 'none';
+    elTo.style.transform = `translateX(${deltaX}px)`;
+    elTo.getBoundingClientRect();
+
+    elTo.style.transition = '';
+    elTo.style.transform = 'translateX(0)';
+  }, [step]);
+
+  const isPopping = (i) => (step.phase === 'shift' && step.comparing[1] === i) || (step.phase === 'insert' && step.inserted === i);
 
   const apply = () => {
     const { values, error: err } = parseArrayInput(input, { min: 2, max: 12, allowNegative: false, lang });
@@ -66,9 +86,10 @@ export default function InsertionSort({ lang = 'tr' }) {
       <div className="card">
         <div className="flex items-end justify-center gap-2 h-48 px-4">
           {step.array.map((val, i) => (
-            <div key={i} className="flex flex-col items-center gap-1 flex-1 min-w-0">
+            <div key={i} ref={el => { barRefs.current[i] = el; }}
+              className={`flex flex-col items-center gap-1 flex-1 min-w-0 transition-transform duration-300 ${isPopping(i) ? 'z-10' : ''}`}>
               <span className="text-xs font-bold text-gray-600 dark:text-gray-300">{val}</span>
-              <div className={`w-full rounded-t-lg bg-gradient-to-t ${barColor(i)} transition-all duration-300`}
+              <div className={`w-full rounded-t-lg bg-gradient-to-t ${barColor(i)} transition-all duration-300 ${isPopping(i) ? 'scale-110 ring-2 ring-amber-300 shadow-lg shadow-amber-500/40' : ''}`}
                 style={{ height: `${(val / maxVal) * 140}px` }} />
               <span className="text-xs text-gray-400">{i}</span>
             </div>
