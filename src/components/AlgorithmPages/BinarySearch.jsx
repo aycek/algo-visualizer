@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { generateBinarySearchSteps } from '../../utils/algorithmHelpers';
+import { getExplanation } from '../../utils/algorithmExplanations';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import { parseArrayInput } from '../../utils/validation';
 import ControlPanel from '../Common/ControlPanel';
@@ -88,6 +89,7 @@ export default function BinarySearch({ lang = 'tr' }) {
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure binarySearch(A, target)\n  lo = 0; hi = n-1\n  while lo <= hi\n    mid = (lo+hi)/2\n    if A[mid] == target: return mid\n    else if A[mid] < target: lo = mid+1\n    else: hi = mid-1\n  return -1`}
         description={lang === 'tr' ? 'Binary Search her adımda orta elemanı kontrol eder ve arama alanını yarıya böler. Sadece sıralı dizilerde çalışır.' : 'Binary Search checks the middle element each step and halves the search space. Only works on sorted arrays.'}
+        explanation={getExplanation('binarySearch', lang)}
         lang={lang} />
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState, useMemo, useRef, useLayoutEffect } from 'react';
 import { generateInsertionSortSteps } from '../../utils/algorithmHelpers';
+import { getExplanation } from '../../utils/algorithmExplanations';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import { parseArrayInput } from '../../utils/validation';
 import ControlPanel from '../Common/ControlPanel';
@@ -106,6 +107,7 @@ export default function InsertionSort({ lang = 'tr' }) {
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure insertionSort(A)\n  for i = 1 to n-1\n    key = A[i]; j = i-1\n    while j >= 0 and A[j] > key\n      A[j+1] = A[j]; j--\n    A[j+1] = key`}
         description={lang === 'tr' ? 'Insertion Sort her yeni elemanı doğru pozisyona kaydırarak kısmen sıralı dizi oluşturur.' : 'Insertion Sort builds a sorted portion by inserting each new element into its correct position.'}
+        explanation={getExplanation('insertion', lang)}
         lang={lang} />
     </div>
   );

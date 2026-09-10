@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { generateMergeSortSteps } from '../../utils/algorithmHelpers';
+import { getExplanation } from '../../utils/algorithmExplanations';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import { parseArrayInput } from '../../utils/validation';
 import ControlPanel from '../Common/ControlPanel';
@@ -90,6 +91,7 @@ export default function MergeSort({ lang = 'tr' }) {
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure mergeSort(A, lo, hi)\n  if lo >= hi: return\n  mid = (lo+hi)/2\n  mergeSort(A, lo, mid)\n  mergeSort(A, mid+1, hi)\n  merge(A, lo, mid, hi)`}
         description={lang === 'tr' ? 'Merge Sort diziyi tekrar tekrar ikiye böler, her yarıyı sıralar ve birleştirir.' : 'Merge Sort repeatedly divides the array in half, sorts each half, and merges them.'}
+        explanation={getExplanation('merge', lang)}
         lang={lang} />
     </div>
   );

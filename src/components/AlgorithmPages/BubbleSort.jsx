@@ -1,5 +1,6 @@
 import { useState, useMemo, useRef, useLayoutEffect } from 'react';
 import { generateBubbleSortSteps } from '../../utils/algorithmHelpers';
+import { getExplanation } from '../../utils/algorithmExplanations';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import { parseArrayInput } from '../../utils/validation';
 import ControlPanel from '../Common/ControlPanel';
@@ -126,6 +127,7 @@ export default function BubbleSort({ lang = 'tr' }) {
       <ControlPanel state={state} lang={lang} />
       <InfoPanel message={step.message} complexity={complexity} pseudocode={pseudocode}
         description={lang === 'tr' ? 'Bubble Sort, tekrar tekrar komşu elemanları karşılaştırır ve gerekirse yer değiştirir.' : 'Bubble Sort repeatedly steps through the list, compares adjacent elements and swaps them.'}
+        explanation={getExplanation('bubble', lang)}
         lang={lang} />
     </div>
   );

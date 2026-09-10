@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Shuffle } from 'lucide-react';
 import { generateBFSSteps, generateRandomGraph } from '../../utils/algorithmHelpers';
+import { getExplanation } from '../../utils/algorithmExplanations';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import ControlPanel from '../Common/ControlPanel';
 import InfoPanel from '../Common/InfoPanel';
@@ -112,6 +113,7 @@ export default function BFS({ lang = 'tr' }) {
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure BFS(G, start)\n  visited = {start}\n  queue = [start]\n  while queue not empty\n    node = queue.dequeue()\n    process(node)\n    for neighbor in G[node]\n      if not visited: enqueue(neighbor)`}
         description={lang === 'tr' ? 'BFS kuyruğa aldığı düğümleri seviye seviye ziyaret eder. Ağırlıksız grafta en kısa yolu garantiler.' : 'BFS visits nodes level by level using a queue. Guarantees shortest path in unweighted graphs.'}
+        explanation={getExplanation('bfs', lang)}
         lang={lang} />
     </div>
   );

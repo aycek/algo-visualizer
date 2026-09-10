@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { generateLinearSearchSteps } from '../../utils/algorithmHelpers';
+import { getExplanation } from '../../utils/algorithmExplanations';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import { parseArrayInput } from '../../utils/validation';
 import ControlPanel from '../Common/ControlPanel';
@@ -83,6 +84,7 @@ export default function LinearSearch({ lang = 'tr' }) {
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure linearSearch(A, target)\n  for i = 0 to n-1\n    if A[i] == target\n      return i\n  return -1`}
         description={lang === 'tr' ? 'Linear Search en basit arama algoritmasıdır. Sıralanmamış dizilerde kullanılabilir.' : 'Linear Search is the simplest search algorithm. Works on unsorted arrays.'}
+        explanation={getExplanation('linearSearch', lang)}
         lang={lang} />
     </div>
   );

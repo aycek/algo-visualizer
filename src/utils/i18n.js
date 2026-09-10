@@ -35,6 +35,9 @@ export const translations = {
       desc: 'Açıklama',
       complexity: 'Karmaşıklık',
       pseudo: 'Pseudocode',
+      learn: 'Konu Anlatımı',
+      howItWorks: 'Nasıl Çalışır?',
+      useCases: 'Nerede Kullanılır?',
     },
     algo: {
       apply: 'Uygula',
@@ -157,6 +160,9 @@ export const translations = {
       desc: 'Description',
       complexity: 'Complexity',
       pseudo: 'Pseudocode',
+      learn: 'Learn More',
+      howItWorks: 'How It Works',
+      useCases: 'Where It\'s Used',
     },
     algo: {
       apply: 'Apply',

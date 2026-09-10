@@ -1,5 +1,6 @@
 import { useState, useMemo, useRef, useLayoutEffect } from 'react';
 import { generateSelectionSortSteps } from '../../utils/algorithmHelpers';
+import { getExplanation } from '../../utils/algorithmExplanations';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import { parseArrayInput } from '../../utils/validation';
 import ControlPanel from '../Common/ControlPanel';
@@ -111,6 +112,7 @@ export default function SelectionSort({ lang = 'tr' }) {
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure selectionSort(A)\n  for i = 0 to n-2\n    minIdx = i\n    for j = i+1 to n-1\n      if A[j] < A[minIdx]: minIdx = j\n    swap(A[i], A[minIdx])`}
         description={lang === 'tr' ? 'Selection Sort her geçişte sıralanmamış kısımdan en küçük elemanı seçip sıralı kısmın sonuna ekler.' : 'Selection Sort finds the minimum element from unsorted part and places it at the beginning.'}
+        explanation={getExplanation('selection', lang)}
         lang={lang} />
     </div>
   );

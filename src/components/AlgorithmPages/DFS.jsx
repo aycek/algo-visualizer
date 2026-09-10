@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Shuffle } from 'lucide-react';
 import { generateDFSSteps, generateRandomGraph } from '../../utils/algorithmHelpers';
+import { getExplanation } from '../../utils/algorithmExplanations';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import ControlPanel from '../Common/ControlPanel';
 import InfoPanel from '../Common/InfoPanel';
@@ -105,6 +106,7 @@ export default function DFS({ lang = 'tr' }) {
       <InfoPanel message={step.message} complexity={complexity}
         pseudocode={`procedure DFS(G, node, visited)\n  visited.add(node)\n  process(node)\n  for neighbor in G[node]\n    if not visited\n      DFS(G, neighbor, visited)`}
         description={lang === 'tr' ? 'DFS mümkün olduğunca derine iner, sonra geri dönerek diğer dalları keşfeder.' : 'DFS explores as deep as possible before backtracking to explore other branches.'}
+        explanation={getExplanation('dfs', lang)}
         lang={lang} />
     </div>
   );

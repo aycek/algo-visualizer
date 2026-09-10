@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { BookOpen, Clock, Code2 } from 'lucide-react';
+import { BookOpen, Clock, Code2, GraduationCap } from 'lucide-react';
 import { t } from '../../utils/i18n';
 
-export default function InfoPanel({ message, complexity, pseudocode, description, lang = 'tr' }) {
+export default function InfoPanel({ message, complexity, pseudocode, description, explanation, lang = 'tr' }) {
   const [tab, setTab] = useState('message');
 
   const tabs = [
     { id: 'message',    label: t(lang, 'info.desc'),       icon: BookOpen },
     { id: 'complexity', label: t(lang, 'info.complexity'), icon: Clock    },
     { id: 'pseudocode', label: t(lang, 'info.pseudo'),     icon: Code2    },
+    ...(explanation ? [{ id: 'learn', label: t(lang, 'info.learn'), icon: GraduationCap }] : []),
   ];
 
   return (
@@ -57,6 +58,29 @@ export default function InfoPanel({ message, complexity, pseudocode, description
           <pre className="text-xs bg-gray-900 dark:bg-gray-950 text-green-400 p-3 rounded-xl overflow-x-auto leading-relaxed font-mono whitespace-pre-wrap">
             {pseudocode}
           </pre>
+        )}
+        {tab === 'learn' && explanation && (
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-indigo-500 dark:text-indigo-400 mb-2">{t(lang, 'info.howItWorks')}</p>
+              <div className="space-y-2">
+                {explanation.howItWorks.map((paragraph, i) => (
+                  <p key={i} className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{paragraph}</p>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-emerald-500 dark:text-emerald-400 mb-2">{t(lang, 'info.useCases')}</p>
+              <ul className="space-y-1.5">
+                {explanation.useCases.map((useCase, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <span className="w-1.5 h-1.5 mt-1.5 rounded-full bg-emerald-500 shrink-0" />
+                    {useCase}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         )}
       </div>
     </div>

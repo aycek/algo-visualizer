@@ -1,5 +1,6 @@
 import { ArrowLeft, GitBranch } from 'lucide-react';
 import { useState, useMemo } from 'react';
+import { getExplanation } from '../../utils/algorithmExplanations';
 import { useAlgorithmState } from '../../hooks/useAlgorithmState';
 import ControlPanel from '../Common/ControlPanel';
 import InfoPanel from '../Common/InfoPanel';
@@ -141,6 +142,7 @@ function TraversalView({ type, setType, lang }) {
         complexity={{ [t(lang, 'complexity.time')]: 'O(n)', [t(lang, 'complexity.space')]: 'O(h)', 'Method': currentT?.desc }}
         pseudocode={`procedure ${type}(node)\n  if node is null: return\n  // ${currentT?.desc}\n  process(node)`}
         description={lang === 'tr' ? `${currentT?.label} gezintisi: ${currentT?.desc} sırasını takip eder.` : `${currentT?.label} traversal follows ${currentT?.desc} order.`}
+        explanation={getExplanation(`tree${type[0].toUpperCase()}${type.slice(1)}`, lang)}
         lang={lang} />
     </div>
   );
